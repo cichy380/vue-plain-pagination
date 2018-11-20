@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container my-4">
-    <h1>vue-pagination</h1>
+    <h1>vue-plain-pagination</h1>
     <p class="lead text-muted">Vue Component</p>
     <p>Element for showing pagination to indicate a series of related content exists across multiple pages. Component
       code based on article "<a href="https://alligator.io/vuejs/vue-pagination-component/" target="_blank">Build a
