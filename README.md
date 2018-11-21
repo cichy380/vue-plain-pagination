@@ -64,8 +64,8 @@ yarn install
 # compiles and hot-reloads for development
 yarn run serve
 
-# compiles and minifies for production
-yarn run build
+# compiles bundle for production
+yarn run build-lib
 
 # lints and fixes files
 yarn run lint
@@ -81,8 +81,8 @@ npm install
 # compiles and hot-reloads for development
 npm run serve
 
-# compiles and minifies for production
-npm run build
+# compiles bundle for production
+npm run build-lib
 
 # lints and fixes files
 npm run lint
