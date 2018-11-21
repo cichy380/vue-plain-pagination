@@ -58,7 +58,7 @@ first/prev/next/last buttons.
   <div>
     <p>Current page: {{ currentPage }}</p>
     <v-pagination v-model="currentPage"
-                  :page-count="30"
+                  :page-count="totalPages"
                   :classes="bootstrapPaginationClasses"
                   :labels="paginationAnchorTexts"></v-pagination>
   </div>
@@ -103,7 +103,7 @@ export default {
 | `labels` | Object | no | HTML/text of prev/next button. |
 
  Default value of `classes`:
- ```json
+ ```
  {
     ul: 'pagination',
     li: 'pagination-item',
@@ -116,7 +116,7 @@ export default {
  ```
 
 Default value of `labels`:
- ```json
+ ```
  {
     first: '&laquo;',
     prev: '&lsaquo;',
