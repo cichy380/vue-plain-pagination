@@ -10,36 +10,38 @@
               :disabled="hasFirst"
               :class="`${classes.button} ${hasFirst ? classes.buttonDisable : ''}`">&lsaquo;</button>
     </li>
-    <li v-show="startPage !== 1"
+    <li v-show="rangeFirstPage !== 1"
         :class="classes.li">
       <button @click="goto(1)"
               :class="classes.button">1</button>
     </li>
-    <li v-show="startPage === 3"
+    <li v-show="rangeFirstPage === 3"
         :class="classes.li">
       <button @click="goto(2)"
               :class="classes.button">2</button>
     </li>
-    <li v-show="startPage !== 1 && startPage !== 2 && startPage !== 3"
+    <li v-show="rangeFirstPage !== 1 && rangeFirstPage !== 2 && rangeFirstPage !== 3"
         :class="`${classes.li} ${classes.liDisable}`">
       <span :class="`${classes.button} ${classes.buttonDisable}`">...</span>
     </li>
-    <li v-for="page in pages"
+    <!-- range start -->
+    <li v-for="page in range"
         :key="page"
         :class="`${classes.li} ${hasActive(page) ? classes.liActive : ''}`">
       <button @click="goto(page)"
               :class="`${classes.button} ${hasActive(page) ? classes.buttonActive : ''}`">{{ page }}</button>
     </li>
-    <li v-show="endPage !== pageCount && endPage !== (pageCount - 1) && endPage !== (pageCount - 2)"
+    <!-- range end -->
+    <li v-show="rangeLastPage !== pageCount && rangeLastPage !== (pageCount - 1) && rangeLastPage !== (pageCount - 2)"
         :class="`${classes.li} ${classes.liDisable }`">
       <span :class="`${classes.button} ${classes.buttonDisable }`">...</span>
     </li>
-    <li v-show="endPage === (pageCount - 2)"
+    <li v-show="rangeLastPage === (pageCount - 2)"
         :class="classes.li">
       <button @click="goto(pageCount - 1)"
               :class="classes.button">{{ (pageCount - 1) }}</button>
     </li>
-    <li v-if="endPage !== pageCount"
+    <li v-if="rangeLastPage !== pageCount"
         :class="classes.li">
       <button @click="goto(pageCount)"
               :class="classes.button">{{ pageCount }}</button>
@@ -58,7 +60,7 @@
 </template>
 
 <script>
-  const maxVisibleButtons = 3;
+  const rangeMax = 3;
 
   export default {
     props: {
@@ -87,29 +89,40 @@
       }
     },
 
+    mounted() {
+      if (this.value > this.pageCount) {
+        this.$emit('input', this.pageCount);
+      }
+    },
+
     computed: {
-      startPage() {
+      rangeFirstPage() {
         if (this.value === 1) {
           return 1;
         }
 
         if (this.value === this.pageCount) {
-          return this.pageCount - maxVisibleButtons + 1;
+          if ((this.pageCount - rangeMax) < 0) {
+            return 1;
+          }
+          else {
+            return this.pageCount - rangeMax + 1;
+          }
         }
 
         return (this.value - 1);
       },
 
-      endPage() {
-        return Math.min(this.startPage + maxVisibleButtons - 1, this.pageCount);
+      rangeLastPage() {
+        return Math.min(this.rangeFirstPage + rangeMax - 1, this.pageCount);
       },
 
-      pages() {
-        let range = [];
-        for (let page = this.startPage; page <= this.endPage; page+= 1) {
-          range.push(page);
+      range() {
+        let rangeList = [];
+        for (let page = this.rangeFirstPage; page <= this.rangeLastPage; page+= 1) {
+            rangeList.push(page);
         }
-        return range;
+        return rangeList;
       },
 
       hasFirst() {
