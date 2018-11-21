@@ -11,11 +11,14 @@ Live demo: http://example.silversite.pl/vue-pagination/
 
 ## Installation
 
-Copy [vue-plain-pagination.vue](https://github.com/cichy380/vue-plain-pagination/src/components/vue-plain-pagination.vue) file to your 
-components folder and import it in your project.
+#### via Yarn
+```bash
+yarn add vue-plain-pagination
+```
 
-```js
-import vPagination from './components/vue-plain-pagination.vue'
+#### via NPM
+```bash
+npm install vue-plain-pagination
 ```
 
 ## Basic usage
@@ -29,7 +32,7 @@ import vPagination from './components/vue-plain-pagination.vue'
 </template>
 
 <script>
-import vPagination from './components/vue-plain-pagination.vue'
+import vPagination from 'vue-plain-pagination'
 
 export default {
   components: { vPagination },
