@@ -1,4 +1,5 @@
 # vue-plain-pagination
+[![NPM version][npm-image]][npm-url]
 
 A simple pagination component for [Vue](https://vuejs.org/).
 
@@ -166,3 +167,6 @@ npm run lint
 ## License
 
 Code released under the [MIT license](LICENSE.md).
+
+[npm-image]: https://img.shields.io/npm/v/vue-plain-pagination.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/vue-plain-pagination
