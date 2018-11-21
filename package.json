@@ -1,6 +1,7 @@
 {
   "name": "vue-plain-pagination",
   "version": "0.1.1",
+  "description": "Pagination component for Vue.js 2",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -47,9 +48,20 @@
   ],
   "files": [
     "dist",
-    "src",
-    "public/*",
-    "*.json",
-    "*.js"
-  ]
+    "src"
+  ],
+  "homepage": "https://github.com/cichy380/vue-plain-pagination#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cichy380/vue-plain-pagination.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cichy380/vue-plain-pagination/issues"
+  },
+  "keywords": [
+    "vue",
+    "vue-component",
+    "pagination"
+  ],
+  "license": "MIT"
 }
