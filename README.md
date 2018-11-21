@@ -49,10 +49,11 @@ export default {
 ## Properties
 
 | name | type | require | default |
-| --- | --- | --- |
+| --- | --- | --- |--- |
 | `v-model` | Number | *yes* | - |
 | `page-count` | Number | *yes* | - |
 | `classes` | Object | no | `{ul:'pagination', li:'pagination-item', liActive:'pagination-item--active', liDisable:'pagination-item--disable', button:'pagination-link', buttonActive:'pagination-link--active', buttonDisable:'pagination-link--disable'}` |
+| `labels` | Object | no | `{first: '&laquo;', prev:'&lsaquo;', next:'&rsaquo;', last:'&raquo;'}` |
 
 ## Contributing
 

@@ -7,7 +7,10 @@
         Reusable Pagination Component with Vue.js</a>".</p>
     <p class="text-success">Current page: <strong>{{ currentPage }}</strong></p>
     <nav class="mb-4">
-      <v-pagination v-model="currentPage" :page-count="30" :classes="bootstrapPaginationClasses"></v-pagination>
+      <v-pagination v-model="currentPage"
+                    :page-count="30"
+                    :classes="bootstrapPaginationClasses"
+                    :labels="customLabels"></v-pagination>
     </nav>
     <hr>
     <p class="text-muted small">
@@ -31,6 +34,12 @@ export default {
         liActive: 'active',
         liDisable: 'disabled',
         button: 'page-link'
+      },
+      customLabels: {
+        first: 'First',
+        prev: 'Previous',
+        next: 'Next',
+        last: 'Last'
       }
     }
   },
