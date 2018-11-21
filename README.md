@@ -21,7 +21,9 @@ yarn add vue-plain-pagination
 npm install vue-plain-pagination
 ```
 
-## Basic usage
+## Usage
+
+#### Basic
 
 ```vue
 <template>
@@ -46,14 +48,82 @@ export default {
 
 ```
 
+#### Customization
+
+Using `classes` and `labels` you can change default CSS class name every HTML tag of pagination and anchor from 
+first/prev/next/last buttons.
+
+```vue
+<template>
+  <div>
+    <p>Current page: {{ currentPage }}</p>
+    <v-pagination v-model="currentPage"
+                  :page-count="30"
+                  :classes="bootstrapPaginationClasses"
+                  :labels="paginationAnchorTexts"></v-pagination>
+  </div>
+</template>
+
+<script>
+import vPagination from 'vue-plain-pagination'
+
+export default {
+  components: { vPagination },
+  data() {
+    return {
+      currentPage: 1,
+      totalPages: 30,
+      bootstrapPaginationClasses: {
+        ul: 'pagination',
+        li: 'page-item',
+        liActive: 'active',
+        liDisable: 'disabled',
+        button: 'page-link'  
+      },
+      paginationAnchorTexts: {
+        first: 'First',
+        prev: 'Previous',
+        next: 'Next',
+        last: 'Last'
+      }
+    }
+  }
+}
+</script>
+
+```
+
 ## Properties
 
-| name | type | require | default |
+| name | type | require |  |
 | --- | --- | --- |--- |
-| `v-model` | Number | *yes* | - |
-| `page-count` | Number | *yes* | - |
-| `classes` | Object | no | `{ul:'pagination', li:'pagination-item', liActive:'pagination-item--active', liDisable:'pagination-item--disable', button:'pagination-link', buttonActive:'pagination-link--active', buttonDisable:'pagination-link--disable'}` |
-| `labels` | Object | no | `{first: '&laquo;', prev:'&lsaquo;', next:'&rsaquo;', last:'&raquo;'}` |
+| `v-model` | Number | yes | Current page. |
+| `page-count` | Number | yes | Number of pages. |
+| `classes` | Object | no | Class names of used HTML tag. |
+| `labels` | Object | no | HTML/text of prev/next button. |
+
+ Default value of `classes`:
+ ```json
+ {
+    ul: 'pagination',
+    li: 'pagination-item',
+    liActive: 'pagination-item--active',
+    liDisable: 'pagination-item--disable',
+    button: 'pagination-link',
+    buttonActive: 'pagination-link--active',
+    buttonDisable: 'pagination-link--disable'
+ }
+ ```
+
+Default value of `labels`:
+ ```json
+ {
+    first: '&laquo;',
+    prev: '&lsaquo;',
+    next: '&rsaquo;',
+    last: '&raquo;'
+ }
+ ```
 
 ## Contributing
 
