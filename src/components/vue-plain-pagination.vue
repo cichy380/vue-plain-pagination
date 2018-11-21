@@ -1,66 +1,75 @@
 <template>
-  <ul :class="classes.ul">
-    <li :class="`${classes.li} ${hasFirst ? classes.liDisable : ''}`">
+  <ul :class="paginationClasses.ul">
+    <li :class="`${paginationClasses.li} ${hasFirst ? paginationClasses.liDisable : ''}`">
       <button @click="first"
               :disabled="hasFirst"
-              :class="`${classes.button} ${hasFirst ? classes.buttonDisable : ''}`">&laquo;</button>
+              :class="`${paginationClasses.button} ${hasFirst ? paginationClasses.buttonDisable : ''}`">&laquo;</button>
     </li>
-    <li :class="`${classes.li} ${hasFirst ? classes.liDisable : ''}`">
+    <li :class="`${paginationClasses.li} ${hasFirst ? paginationClasses.liDisable : ''}`">
       <button @click="prev"
               :disabled="hasFirst"
-              :class="`${classes.button} ${hasFirst ? classes.buttonDisable : ''}`">&lsaquo;</button>
+              :class="`${paginationClasses.button} ${hasFirst ? paginationClasses.buttonDisable : ''}`">&lsaquo;</button>
     </li>
     <li v-show="rangeFirstPage !== 1"
-        :class="classes.li">
+        :class="paginationClasses.li">
       <button @click="goto(1)"
-              :class="classes.button">1</button>
+              :class="paginationClasses.button">1</button>
     </li>
     <li v-show="rangeFirstPage === 3"
-        :class="classes.li">
+        :class="paginationClasses.li">
       <button @click="goto(2)"
-              :class="classes.button">2</button>
+              :class="paginationClasses.button">2</button>
     </li>
     <li v-show="rangeFirstPage !== 1 && rangeFirstPage !== 2 && rangeFirstPage !== 3"
-        :class="`${classes.li} ${classes.liDisable}`">
-      <span :class="`${classes.button} ${classes.buttonDisable}`">...</span>
+        :class="`${paginationClasses.li} ${paginationClasses.liDisable}`">
+      <span :class="`${paginationClasses.button} ${paginationClasses.buttonDisable}`">...</span>
     </li>
     <!-- range start -->
     <li v-for="page in range"
         :key="page"
-        :class="`${classes.li} ${hasActive(page) ? classes.liActive : ''}`">
+        :class="`${paginationClasses.li} ${hasActive(page) ? paginationClasses.liActive : ''}`">
       <button @click="goto(page)"
-              :class="`${classes.button} ${hasActive(page) ? classes.buttonActive : ''}`">{{ page }}</button>
+              :class="`${paginationClasses.button} ${hasActive(page) ? paginationClasses.buttonActive : ''}`">{{ page }}</button>
     </li>
     <!-- range end -->
     <li v-show="rangeLastPage !== pageCount && rangeLastPage !== (pageCount - 1) && rangeLastPage !== (pageCount - 2)"
-        :class="`${classes.li} ${classes.liDisable }`">
-      <span :class="`${classes.button} ${classes.buttonDisable }`">...</span>
+        :class="`${paginationClasses.li} ${paginationClasses.liDisable }`">
+      <span :class="`${paginationClasses.button} ${paginationClasses.buttonDisable }`">...</span>
     </li>
     <li v-show="rangeLastPage === (pageCount - 2)"
-        :class="classes.li">
+        :class="paginationClasses.li">
       <button @click="goto(pageCount - 1)"
-              :class="classes.button">{{ (pageCount - 1) }}</button>
+              :class="paginationClasses.button">{{ (pageCount - 1) }}</button>
     </li>
     <li v-if="rangeLastPage !== pageCount"
-        :class="classes.li">
+        :class="paginationClasses.li">
       <button @click="goto(pageCount)"
-              :class="classes.button">{{ pageCount }}</button>
+              :class="paginationClasses.button">{{ pageCount }}</button>
     </li>
-    <li :class="`${classes.li} ${hasLast ? classes.liDisable : ''}`">
+    <li :class="`${paginationClasses.li} ${hasLast ? paginationClasses.liDisable : ''}`">
       <button @click="next"
               :disabled="hasLast"
-              :class="`${classes.button} ${hasLast ? classes.buttonDisable : ''}`">&rsaquo;</button>
+              :class="`${paginationClasses.button} ${hasLast ? paginationClasses.buttonDisable : ''}`">&rsaquo;</button>
     </li>
-    <li :class="`${classes.li} ${hasLast ? classes.liDisable : ''}`">
+    <li :class="`${paginationClasses.li} ${hasLast ? paginationClasses.liDisable : ''}`">
       <button @click="last"
               :disabled="hasLast"
-              :class="`${classes.button} ${hasLast ? classes.buttonDisable : ''}`">&raquo;</button>
+              :class="`${paginationClasses.button} ${hasLast ? paginationClasses.buttonDisable : ''}`">&raquo;</button>
     </li>
   </ul>
 </template>
 
 <script>
   const rangeMax = 3;
+  const defaultClasses = {
+    ul: 'pagination',
+    li: 'pagination-item',
+    liActive: 'pagination-item--active',
+    liDisable: 'pagination-item--disable',
+    button: 'pagination-link',
+    buttonActive: 'pagination-link--active',
+    buttonDisable: 'pagination-link--disable'
+  };
 
   export default {
     props: {
@@ -75,16 +84,15 @@
       classes: {
         type: Object,
         required: false,
-        default() {
-          return {
-            ul: 'pagination',
-            li: 'pagination-item',
-            liActive: 'pagination-item--active',
-            liDisable: 'pagination-item--disable',
-            button: 'pagination-link',
-            buttonActive: 'pagination-link--active',
-            buttonDisable: 'pagination-link--disable'
-          }
+        default: () => ({})
+      }
+    },
+
+    data() {
+      return {
+        paginationClasses: {
+          ...defaultClasses,
+          ...this.classes
         }
       }
     },
