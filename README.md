@@ -3,8 +3,8 @@
 
 A simple pagination component for [Vue](https://vuejs.org/).
 
-Live demo: http://example.silversite.pl/vue-pagination/ 
-(styles from [Bootstrap 4](http://getbootstrap.com/docs/4.1/components/pagination/))
+Online demo: [JSFiddle](https://jsfiddle.net/cichy380/b2w8e0kx/) 
+(used styles from [Bootstrap 4](http://getbootstrap.com/docs/4.1/components/pagination/))
 
 ## Dependencies
 
@@ -12,17 +12,17 @@ Live demo: http://example.silversite.pl/vue-pagination/
 
 ## Installation
 
-##### via Yarn
+#### via Yarn
 ```bash
 yarn add vue-plain-pagination
 ```
 
-##### via NPM
+#### via NPM
 ```bash
 npm install vue-plain-pagination
 ```
 
-##### via CDN
+#### via CDN
 ```html
 <script src="//unpkg.com/vue-plain-pagination@0.2.1"></script>
 ```
@@ -31,7 +31,7 @@ npm install vue-plain-pagination
 
 ### Basic
 
-##### after Yarn/NPM installation
+#### after Yarn/NPM installation
 
 ```vue
 <template>
@@ -55,7 +55,7 @@ export default {
 </script>
 ```
 
-##### via CDN
+#### via CDN
 
 ```html
 <!doctype html>
@@ -130,9 +130,11 @@ export default {
 </script>
 ```
 
+demo: [JSFiddle](https://jsfiddle.net/cichy380/b2w8e0kx/)
+
 ## Properties
 
-| name | type | require |  |
+| name | type | required |  |
 | --- | --- | --- |--- |
 | `v-model` | Number | yes | Current page. |
 | `page-count` | Number | yes | Number of pages. |
