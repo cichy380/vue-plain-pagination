@@ -12,19 +12,26 @@ Live demo: http://example.silversite.pl/vue-pagination/
 
 ## Installation
 
-#### via Yarn
+##### via Yarn
 ```bash
 yarn add vue-plain-pagination
 ```
 
-#### via NPM
+##### via NPM
 ```bash
 npm install vue-plain-pagination
 ```
 
+##### via CDN
+```html
+<script src="//unpkg.com/vue-plain-pagination@0.2.1"></script>
+```
+
 ## Usage
 
-#### Basic
+### Basic
+
+##### after Yarn/NPM installation
 
 ```vue
 <template>
@@ -46,12 +53,42 @@ export default {
   }
 }
 </script>
-
 ```
 
-#### Customization
+##### via CDN
 
-Using `classes` and `labels` you can change default CSS class name every HTML tag of pagination and anchor from 
+```html
+<!doctype html>
+<html lang="en">
+<head>
+    <title>vue-plain-pagination</title>
+</head>
+<body>
+<div id="app">
+    <p>page: {{ currentPage }}</p>
+    <v-pagination v-model="currentPage" :page-count="total"></v-pagination>
+</div>
+
+<script src="//unpkg.com/vue"></script>
+<script src="//unpkg.com/vue-plain-pagination"></script>
+<script>
+  Vue.component('v-pagination', window['vue-plain-pagination'])
+
+  new Vue({
+    el: '#app',
+    data: {
+      currentPage: 5,
+      total: 9,
+    },
+  })
+</script>
+</body>
+</html>
+```
+
+### Customization
+
+Using `classes` and `labels` you can change default CSS class names of every HTML tag of pagination and *anchor* from 
 first/prev/next/last buttons.
 
 ```vue
@@ -91,7 +128,6 @@ export default {
   }
 }
 </script>
-
 ```
 
 ## Properties
