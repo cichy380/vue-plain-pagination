@@ -165,6 +165,12 @@
       },
     },
 
+    watch: {
+      value: function () {
+        this.$emit('change');
+      }
+    },
+
     methods: {
       first() {
         if (!this.hasFirst) {

@@ -10,7 +10,8 @@
       <v-pagination v-model="currentPage"
                     :page-count="30"
                     :classes="bootstrapPaginationClasses"
-                    :labels="customLabels"></v-pagination>
+                    :labels="customLabels"
+                    @change="onChange"></v-pagination>
     </nav>
     <hr>
     <p class="text-muted small">
@@ -45,6 +46,12 @@ export default {
   },
   components: {
     vPagination
+  },
+  methods: {
+    onChange: function () {
+      // eslint-disable-next-line no-console
+      console.log(`"currentPage" has been changed`)
+    }
   }
 }
 </script>
