@@ -1,6 +1,6 @@
 {
   "name": "vue-plain-pagination",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Pagination component for Vue.js 2",
   "private": false,
   "scripts": {

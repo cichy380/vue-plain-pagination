@@ -1,74 +1,76 @@
 <template>
   <ul :class="paginationClasses.ul">
-    <li v-if="paginationLabels.first"
-        :class="`${paginationClasses.li} ${hasFirst ? paginationClasses.liDisable : ''}`">
-      <button @click="first"
-              :disabled="hasFirst"
-              :class="`${paginationClasses.button} ${hasFirst ? paginationClasses.buttonDisable : ''}`"
-              v-html="paginationLabels.first"></button>
+    <li
+      v-if="paginationLabels.first"
+      :class="`${paginationClasses.li} ${hasFirst ? paginationClasses.liDisable : ''}`"
+    >
+      <button
+        @click="first"
+        :disabled="hasFirst"
+        :class="`${paginationClasses.button} ${hasFirst ? paginationClasses.buttonDisable : ''}`"
+        v-html="paginationLabels.first"
+      ></button>
     </li>
-    <li v-if="paginationLabels.prev"
-        :class="`${paginationClasses.li} ${hasFirst ? paginationClasses.liDisable : ''}`">
-      <button @click="prev"
-              :disabled="hasFirst"
-              :class="`${paginationClasses.button} ${hasFirst ? paginationClasses.buttonDisable : ''}`"
-              v-html="paginationLabels.prev"></button>
+
+    <li
+      v-if="paginationLabels.prev"
+      :class="`${paginationClasses.li} ${hasFirst ? paginationClasses.liDisable : ''}`"
+    >
+      <button
+        @click="prev"
+        :disabled="hasFirst"
+        :class="`${paginationClasses.button} ${hasFirst ? paginationClasses.buttonDisable : ''}`"
+        v-html="paginationLabels.prev"
+      ></button>
     </li>
-    <li v-show="rangeFirstPage !== 1"
-        :class="paginationClasses.li">
-      <button @click="goto(1)"
-              :class="paginationClasses.button">1</button>
+
+    <li
+      v-for="page in items"
+      :key="page.label"
+      :class="`${paginationClasses.li} ${page.active ? paginationClasses.liActive : ''} ${page.disable ? paginationClasses.liDisable : ''}`"
+    >
+      <span
+        v-if="page.disable"
+        :class="`${paginationClasses.button} ${paginationClasses.buttonDisable}`"
+      >
+        ...
+      </span>
+      <button
+        v-else
+        @click="goto(page.label)"
+        :class="`${paginationClasses.button} ${page.active ? paginationClasses.buttonActive : ''}`"
+      >
+        {{ page.label }}
+      </button>
     </li>
-    <li v-show="rangeFirstPage === 3"
-        :class="paginationClasses.li">
-      <button @click="goto(2)"
-              :class="paginationClasses.button">2</button>
+
+    <li
+      v-if="paginationLabels.next"
+      :class="`${paginationClasses.li} ${hasLast ? paginationClasses.liDisable : ''}`"
+    >
+      <button
+        @click="next"
+        :disabled="hasLast"
+        :class="`${paginationClasses.button} ${hasLast ? paginationClasses.buttonDisable : ''}`"
+        v-html="paginationLabels.next"
+      ></button>
     </li>
-    <li v-show="rangeFirstPage !== 1 && rangeFirstPage !== 2 && rangeFirstPage !== 3"
-        :class="`${paginationClasses.li} ${paginationClasses.liDisable}`">
-      <span :class="`${paginationClasses.button} ${paginationClasses.buttonDisable}`">...</span>
-    </li>
-    <!-- range start -->
-    <li v-for="page in range"
-        :key="page"
-        :class="`${paginationClasses.li} ${hasActive(page) ? paginationClasses.liActive : ''}`">
-      <button @click="goto(page)"
-              :class="`${paginationClasses.button} ${hasActive(page) ? paginationClasses.buttonActive : ''}`">{{ page }}</button>
-    </li>
-    <!-- range end -->
-    <li v-show="rangeLastPage !== pageCount && rangeLastPage !== (pageCount - 1) && rangeLastPage !== (pageCount - 2)"
-        :class="`${paginationClasses.li} ${paginationClasses.liDisable }`">
-      <span :class="`${paginationClasses.button} ${paginationClasses.buttonDisable }`">...</span>
-    </li>
-    <li v-show="rangeLastPage === (pageCount - 2)"
-        :class="paginationClasses.li">
-      <button @click="goto(pageCount - 1)"
-              :class="paginationClasses.button">{{ (pageCount - 1) }}</button>
-    </li>
-    <li v-if="rangeLastPage !== pageCount"
-        :class="paginationClasses.li">
-      <button @click="goto(pageCount)"
-              :class="paginationClasses.button">{{ pageCount }}</button>
-    </li>
-    <li v-if="paginationLabels.next"
-        :class="`${paginationClasses.li} ${hasLast ? paginationClasses.liDisable : ''}`">
-      <button @click="next"
-              :disabled="hasLast"
-              :class="`${paginationClasses.button} ${hasLast ? paginationClasses.buttonDisable : ''}`"
-              v-html="paginationLabels.next"></button>
-    </li>
-    <li v-if="paginationLabels.last"
-        :class="`${paginationClasses.li} ${hasLast ? paginationClasses.liDisable : ''}`">
-      <button @click="last"
-              :disabled="hasLast"
-              :class="`${paginationClasses.button} ${hasLast ? paginationClasses.buttonDisable : ''}`"
-              v-html="paginationLabels.last"></button>
+
+    <li
+      v-if="paginationLabels.last"
+      :class="`${paginationClasses.li} ${hasLast ? paginationClasses.liDisable : ''}`"
+    >
+      <button
+        @click="last"
+        :disabled="hasLast"
+        :class="`${paginationClasses.button} ${hasLast ? paginationClasses.buttonDisable : ''}`"
+        v-html="paginationLabels.last"
+      ></button>
     </li>
   </ul>
 </template>
 
 <script>
-  const rangeMax = 3;
   const defaultClasses = {
     ul: 'pagination',
     li: 'pagination-item',
@@ -77,13 +79,14 @@
     button: 'pagination-link',
     buttonActive: 'pagination-link--active',
     buttonDisable: 'pagination-link--disable'
-  };
+  }
+
   const defaultLabels = {
     first: '&laquo;',
     prev: '&lsaquo;',
     next: '&rsaquo;',
     last: '&raquo;'
-  };
+  }
 
   export default {
     props: {
@@ -122,86 +125,76 @@
 
     mounted() {
       if (this.value > this.pageCount) {
-        this.$emit('input', this.pageCount);
+        this.$emit('input', this.pageCount)
       }
     },
 
     computed: {
-      rangeFirstPage() {
-        if (this.value === 1) {
-          return 1;
-        }
+      items() {
+        let valPrev = this.value > 1 ? (this.value - 1) : 1 // for easier navigation - gives one previous page
+        let valNext = this.value < this.pageCount ? (this.value + 1) : this.pageCount // one next page
+        let extraPrev = valPrev === 3 ? 2 : null
+        let extraNext = valNext === (this.pageCount - 2) ? (this.pageCount - 1) : null
+        let dotsBefore = valPrev > 3 ? 2 : null
+        let dotsAfter = valNext < (this.pageCount - 2) ? (this.pageCount - 1) : null
 
-        if (this.value === this.pageCount) {
-          if ((this.pageCount - rangeMax) < 0) {
-            return 1;
+        let output = []
+
+        for (let i = 1; i <= this.pageCount; i += 1) {
+          if ([1, this.pageCount, this.value, valPrev, valNext, extraPrev, extraNext, dotsBefore, dotsAfter].includes(i)) {
+            output.push({
+              label: i,
+              active: this.value === i,
+              disable: [dotsBefore, dotsAfter].includes(i)
+            })
           }
-          else {
-            return this.pageCount - rangeMax + 1;
-          }
         }
 
-        return (this.value - 1);
-      },
-
-      rangeLastPage() {
-        return Math.min(this.rangeFirstPage + rangeMax - 1, this.pageCount);
-      },
-
-      range() {
-        let rangeList = [];
-        for (let page = this.rangeFirstPage; page <= this.rangeLastPage; page+= 1) {
-            rangeList.push(page);
-        }
-        return rangeList;
+        return output
       },
 
       hasFirst() {
-        return (this.value === 1);
+        return (this.value === 1)
       },
 
       hasLast() {
-        return (this.value === this.pageCount);
+        return (this.value === this.pageCount)
       },
     },
 
     watch: {
       value: function () {
-        this.$emit('change');
+        this.$emit('change')
       }
     },
 
     methods: {
       first() {
         if (!this.hasFirst) {
-          this.$emit('input', 1);
+          this.$emit('input', 1)
         }
       },
 
       prev() {
         if (!this.hasFirst) {
-          this.$emit('input', (this.value - 1));
+          this.$emit('input', (this.value - 1))
         }
       },
 
       goto(page) {
-        this.$emit('input', page);
+        this.$emit('input', page)
       },
 
       next() {
         if (!this.hasLast) {
-          this.$emit('input', (this.value + 1));
+          this.$emit('input', (this.value + 1))
         }
       },
 
       last() {
         if (!this.hasLast) {
-          this.$emit('input', this.pageCount);
+          this.$emit('input', this.pageCount)
         }
-      },
-
-      hasActive(page) {
-        return (page === this.value);
       },
     }
   }
